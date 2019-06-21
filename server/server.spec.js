@@ -1,5 +1,5 @@
 const server = require('./server.js')
-
+const db = require('../yogurt/yogurtModel')
 const supertest = require('supertest')
 
 describe('server', () => {
@@ -40,4 +40,27 @@ describe('server', () => {
             });
         });
     });
+
+    describe('DELETE yogurt endpoint responds with 200/deleted yogurt successfully', () => {
+        it('deleted yogurt successfully', () => {
+            return supertest(server)
+            .delete(`/yogurt/3`)
+            .then(res => {
+                expect(res.body).toEqual({
+                    "message": "deleted yogurt successfully"
+                  })
+            })
+        });
+        it('responds with 200', () => {
+            return supertest(server)
+            .delete(`/yogurt/2`)
+            .expect(200)
+        });
+
+        it('responds with 404 when sent bad id', () => {
+            return supertest(server)
+            .delete(`/yogurt/99999999`)
+            .expect(404)
+        });
+    }); 
 });
