@@ -27,4 +27,20 @@ server.post('/yogurt', (req, res) => {
     res.status(500).json(error)
   })
 });
+
+server.delete('/yogurt/:id', (req, res) => {
+  Yogurt.removeYogurt(req.params.id)
+  .then(deleted => {
+    if (deleted > 0) {
+      res.status(200).json({message: `deleted yogurt successfully`})
+    } else {
+      res.status(404).json({
+        message: 'could not find yogurt with specified id'
+      })
+    }
+  })
+  .catch(error => {
+    res.status(500).json(error)
+  })
+});
 module.exports = server;

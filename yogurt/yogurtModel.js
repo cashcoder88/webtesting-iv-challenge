@@ -3,7 +3,8 @@ const db = require('../data/dbConfig.js');
 module.exports = {
     getYogurt,
     getYogurtById,
-    addYogurt
+    addYogurt,
+    removeYogurt
 }
 
 function getYogurt() {
@@ -21,5 +22,11 @@ function getYogurtById(id) {
 function addYogurt(yogurt) {
     return db('yogurts')
     .insert(yogurt, 'id')
+}
+
+function removeYogurt(id) {
+    return db('yogurts')
+    .where({ id})
+    .del()
 }
 
