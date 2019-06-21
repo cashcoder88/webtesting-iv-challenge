@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const Yog = require('../yogurt/yogurtModel.js')
+const Yogurt = require('../yogurt/yogurtModel.js')
 
 server.use(express.json());
 
@@ -9,7 +9,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/yogurt', (req, res) => {
-  Yog.getYogurt()
+  Yogurt.getYogurt()
   .then(yogurts => {
     res.status(200).json(yogurts)
   })
